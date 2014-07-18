@@ -15,11 +15,11 @@ for plugin in list(config["plugins_loaded"].keys()):
 
 irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 irc.connect((config["server"], config["port"]))
-sys.stdout.write(irc.recv(4096).decode())
 if config["passw"] != "":
     irc.send(("PASS " + config["passw"] + "\n").encode())
 irc.send(("NICK " + config["nick"] + "\n").encode())
 irc.send(("USER " + config["nick"] + " 0 * :" + config["nick"] + "\n").encode())
+sys.stdout.write(irc.recv(4096).decode())
 
 def mkconfig():
     open(config_file, "w").write(json.dumps(config, sort_keys = True, indent = 4))
