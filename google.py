@@ -36,9 +36,9 @@ def plugin(user, user_nick, channel, message):
 
         query = urllib.parse.urlencode({"q": args})
         url = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&num=0&pws=0&hl=en&" + query
-        response = json.loads((urllib.request.urlopen(url).read()).decode())["responseData"]["results"][0]
         prefix = "PRIVMSG " + channel + " :[\0032" + site + "\003] "
         try:
+            response = json.loads((urllib.request.urlopen(url).read()).decode())["responseData"]["results"][0]
             return prefix + response["titleNoFormatting"] + " - " + response["unescapedUrl"]
         except IndexError:
             return prefix + "\002ERROR:\002 No results found"
